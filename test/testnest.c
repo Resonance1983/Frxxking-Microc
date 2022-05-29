@@ -5,7 +5,7 @@ void main()
 	t = 1;
 	{
 
-          	int a;
+        int a;
 		a = 2;
 		print a;
 	}	
