@@ -1,0 +1,84 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+  <OutputType>Exe</OutputType>
+  <TargetFramework>net6.0</TargetFramework>
+</PropertyGroup>
+
+<ItemGroup>
+
+<FsLex Include="CLex.fsl">
+<OtherFlags>--module CLex --unicode</OtherFlags>
+</FsLex>
+<FsYacc Include="CPar.fsy">
+  <OtherFlags>--module CPar</OtherFlags>
+</FsYacc>
+
+ 
+<Compile Include="Absyn.fs" />
+<Compile Include="Debug.fs" />
+<Compile Include="CPar.fs" />
+<Compile Include="CLex.fs" />
+<Compile Include="Parse.fs" />
+<Compile Include="Machine.fs" />
+<Compile Include="Interp.fs" />
+<Compile Include="interpc.fs" />
+</ItemGroup>
+
+<ItemGroup>
+  <PackageReference Include="FsLexYacc" Version="10.2.0" />
+</ItemGroup>
+<ItemGroup>
+
+ <!-- <MyItem Include="example\variable.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\function1.c" Args ="8"/>  -->
+<!-- <MyItem Include="example\ex1.c" Args ="8"/> -->
+<!-- <MyItem Include="example\ex2.c" /> -->
+<MyItem Include="example\ex3.c" Args ="8"/>
+<!-- <MyItem Include="example\ex4.c" Args ="8"/>  -->
+<!-- <MyItem Include="example\ex5.c" Args ="8"/> 
+<MyItem Include="example\ex6.c" Args ="8"/>
+<MyItem Include="example\ex7.c" Args =""/>
+<MyItem Include="example\ex8.c" Args =""/>
+<MyItem Include="example\ex9.c" Args ="8"/>
+<MyItem Include="example\ex10.c" Args ="8"/>
+<MyItem Include="example\ex11.c" />
+<MyItem Include="example\ex12.c" /> 
+<MyItem Include="example\ex13.c" />
+<MyItem Include="example\ex14.c" />
+<MyItem Include="example\ex15.c" />
+<MyItem Include="example\ex16.c" />
+<MyItem Include="example\ex17.c" />
+<MyItem Include="example\ex18.c" Args="0 0" />
+<MyItem Include="example\ex19.c" />
+<MyItem Include="example\ex20.c" />
+<MyItem Include="example\ex21.c" />
+<MyItem Include="example\ex22.c" />
+<MyItem Include="example\ex23.c" />
+<MyItem Include="example\ex24.c" />
+<MyItem Include="example\ex25.c" /> -->
+ <!-- <MyItem Include="example\emptymain.c" Args ="8"/> 
+ <MyItem Include="example\global.c" Args ="8"/> 
+ <MyItem Include="example\variable.c" Args ="8"/> 
+ <MyItem Include="example\array.c" Args ="8"/> 
+ <MyItem Include="example\onearg.c" Args ="8"/> 
+ <MyItem Include="example\assign.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\if.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\while.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\pointer.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\expr.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\return.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\return1.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\function.c" Args ="8"/>  -->
+ <!-- <MyItem Include="example\function1.c" Args ="8"/>  -->
+</ItemGroup>
+
+
+<Target Name="ccrun"> 
+<Exec Command="
+echo -----------interprete------------
+dotnet run -p interpc.fsproj -g %(MyItem.RelativeDir)%(MyItem.FileName).c %(MyItem.Args)"
+/>
+
+</Target>
+</Project>
