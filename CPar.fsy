@@ -20,10 +20,11 @@ let third  (_, _, c) = c
 
 %token <int> CSTINT CSTBOOL  // <int> 是词元的语义值类型
 %token <string> CSTSTRING NAME
-%token <float> CSTFLOAT 
+%token <float> CSTFLOAT
 %token <double> CSTDOUBLE
+%token <char> CSTCHAR
 
-%token INT CHAR FLOAT DOUBLE LONG STRING BOOLEAN
+%token INT CHAR FLOAT DOUBLE STRING BOOLEAN
 %token ELSE IF NULL PRINT PRINTLN RETURN VOID WHILE FOR SWITCH CASE DEFAULT DO UNTIL IN RANGE
 %token PLUS MINUS TIMES DIV MOD PREINC PREDEC PLUSASSIGN MINUSASSIGN TIMESASSIGN DIVASSIGN MODASSIGN
 %token EQ NE GT LT GE LE COLON QUEST
@@ -31,7 +32,7 @@ let third  (_, _, c) = c
 %token LPAR RPAR LBRACE RBRACE LBRACK RBRACK SEMI COMMA ASSIGN AMP
 %token EOF
 
-//提高优先级
+//关联方式
 %right ASSIGN             /* lowest precedence */  // 最下面的优先级最高
 %nonassoc PRINT
 %nonassoc QUEST COLON
@@ -193,6 +194,8 @@ ExprNotAccess:
   | Access ASSIGN Expr                  { Assign($1, $3)      }
   | PREINC Access                       { PreInc $2           }
   | PREDEC Access                       { PreDec $2           }
+  | Access PREINC                       { PreInc $1           } 
+  | Access PREDEC                       { PreDec $1           }
   | Expr QUEST Expr COLON Expr          { Prim3($1,$3,$5)     }
   | Access PLUSASSIGN Expr              { AssignPrim("+=", $1, $3) }
   | Access MINUSASSIGN Expr             { AssignPrim("-=", $1, $3) }
@@ -205,8 +208,6 @@ ExprNotAccess:
   | PRINTLN                             { Prim1("printc", nl) }
   | Access PREINC                       { PreInc $1           }
   | Access PREDEC                       { PreDec $1           }
-  | PREINC Access                       { PreInc $2           } 
-  | PREDEC Access                       { PreDec $2           }
   | Expr PLUS  Expr                     { Prim2("+",  $1, $3) }
   | Expr MINUS Expr                     { Prim2("-",  $1, $3) }
   | Expr TIMES Expr                     { Prim2("*",  $1, $3) }
@@ -230,7 +231,6 @@ AtExprNotAccess:
     Const                               { CstI $1             }
   | ConstFloat                          { CstF $1             }
   | ConstDouble                         { CstD $1             } //=double
-  | ConstLong                           { CstL $1             } //=long
   | ConstChar                           { CstC $1             } //=char
   | LPAR ExprNotAccess RPAR             { $2                  } 
   | AMP Access                          { Addr $2             } // 取地址
@@ -275,10 +275,15 @@ ConstString:                                              //=string
   CSTSTRING                             { $1       }
 ;
 
+ConstChar:                                              //=char
+  CSTCHAR                               { $1       }
+;
+
 //类型定义
 Type:
     INT                                 { TypI     }
   | CHAR                                { TypC     }
-  | LONG                                { TypL     }   //=
   | STRING                              { TypS     }   //=
+  | FLOAT                               { TypF     }
+  | DOUBLE                              { TypD     }
 ;

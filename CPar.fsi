@@ -12,11 +12,6 @@ type token =
   | COMMA
   | ASSIGN
   | AMP
-  | PLUSASSIGN
-  | MINUSASSIGN
-  | TIMESASSIGN
-  | DIVASSIGN
-  | MODASSIGN
   | NOT
   | SEQOR
   | SEQAND
@@ -26,6 +21,8 @@ type token =
   | LT
   | GE
   | LE
+  | COLON
+  | QUEST
   | PLUS
   | MINUS
   | TIMES
@@ -33,17 +30,36 @@ type token =
   | MOD
   | PREINC
   | PREDEC
-  | CHAR
+  | PLUSASSIGN
+  | MINUSASSIGN
+  | TIMESASSIGN
+  | DIVASSIGN
+  | MODASSIGN
   | ELSE
   | IF
-  | INT
   | NULL
   | PRINT
   | PRINTLN
   | RETURN
   | VOID
-  | FOR
   | WHILE
+  | FOR
+  | SWITCH
+  | CASE
+  | DEFAULT
+  | DO
+  | UNTIL
+  | IN
+  | RANGE
+  | INT
+  | CHAR
+  | FLOAT
+  | DOUBLE
+  | STRING
+  | BOOLEAN
+  | CSTCHAR of (char)
+  | CSTDOUBLE of (double)
+  | CSTFLOAT of (float)
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTINT of (int)
@@ -60,11 +76,6 @@ type tokenId =
     | TOKEN_COMMA
     | TOKEN_ASSIGN
     | TOKEN_AMP
-    | TOKEN_PLUSASSIGN
-    | TOKEN_MINUSASSIGN
-    | TOKEN_TIMESASSIGN
-    | TOKEN_DIVASSIGN
-    | TOKEN_MODASSIGN
     | TOKEN_NOT
     | TOKEN_SEQOR
     | TOKEN_SEQAND
@@ -74,6 +85,8 @@ type tokenId =
     | TOKEN_LT
     | TOKEN_GE
     | TOKEN_LE
+    | TOKEN_COLON
+    | TOKEN_QUEST
     | TOKEN_PLUS
     | TOKEN_MINUS
     | TOKEN_TIMES
@@ -81,17 +94,36 @@ type tokenId =
     | TOKEN_MOD
     | TOKEN_PREINC
     | TOKEN_PREDEC
-    | TOKEN_CHAR
+    | TOKEN_PLUSASSIGN
+    | TOKEN_MINUSASSIGN
+    | TOKEN_TIMESASSIGN
+    | TOKEN_DIVASSIGN
+    | TOKEN_MODASSIGN
     | TOKEN_ELSE
     | TOKEN_IF
-    | TOKEN_INT
     | TOKEN_NULL
     | TOKEN_PRINT
     | TOKEN_PRINTLN
     | TOKEN_RETURN
     | TOKEN_VOID
-    | TOKEN_FOR
     | TOKEN_WHILE
+    | TOKEN_FOR
+    | TOKEN_SWITCH
+    | TOKEN_CASE
+    | TOKEN_DEFAULT
+    | TOKEN_DO
+    | TOKEN_UNTIL
+    | TOKEN_IN
+    | TOKEN_RANGE
+    | TOKEN_INT
+    | TOKEN_CHAR
+    | TOKEN_FLOAT
+    | TOKEN_DOUBLE
+    | TOKEN_STRING
+    | TOKEN_BOOLEAN
+    | TOKEN_CSTCHAR
+    | TOKEN_CSTDOUBLE
+    | TOKEN_CSTFLOAT
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTINT
@@ -104,6 +136,7 @@ type nonTerminalId =
     | NONTERM_Topdecs
     | NONTERM_Topdec
     | NONTERM_Vardec
+    | NONTERM_VardecAndAssign
     | NONTERM_Vardesc
     | NONTERM_Fundec
     | NONTERM_Paramdecs
@@ -113,6 +146,8 @@ type nonTerminalId =
     | NONTERM_Stmt
     | NONTERM_StmtM
     | NONTERM_StmtU
+    | NONTERM_CaseList
+    | NONTERM_CaseDec
     | NONTERM_Expr
     | NONTERM_ExprNotAccess
     | NONTERM_AtExprNotAccess
@@ -120,6 +155,10 @@ type nonTerminalId =
     | NONTERM_Exprs
     | NONTERM_Exprs1
     | NONTERM_Const
+    | NONTERM_ConstFloat
+    | NONTERM_ConstDouble
+    | NONTERM_ConstString
+    | NONTERM_ConstChar
     | NONTERM_Type
 /// This function maps tokens to integer indexes
 val tagOfToken: token -> int

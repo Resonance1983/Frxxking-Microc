@@ -15,7 +15,6 @@ type typ =
   | TypC                             (* Type char                   *)
   | TypF                             (* Type float32                *)
   | TypD                             (* Type double                 *)
-  | TypL                             (* Type long                   *)
   | TypS                             (* Type string                 *)
   | TypB                             (* Type boolean                *)
   | TypA of typ * int option         (* Array type                  *)
@@ -33,9 +32,10 @@ and expr =                           // 表达式，右值
   | CstF of float
   | CstD of double
   | CstS of string
+  | CstC of char
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
-  | Prim3 of expr * expr * expr      (*  ? ;                        *)
+  | Prim3 of expr * expr * expr      (*  ? ：                        *)
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)

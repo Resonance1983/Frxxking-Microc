@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UvJdbJcfcc5tfFnMyxAYG5pGzpiE5xhM5a3I5NPUu8kkaaJnC6tv+x2dQ72k9dW/IfXoGfsdgf5/sC3jtRSS3w==",
+  "dgSpecHash": "eRy3kD6xmDDTJH6K34pMORQmoOG4Y+gTH6zfjXJ4l0EeTBK7LTcTS6yB8aHdoGAnVt7XlE1GnPVAvyY/hE+x5Q==",
   "success": true,
-  "projectFilePath": "D:\\Homework\\编译原理\\microc\\interpc.fsproj",
+  "projectFilePath": "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj",
   "expectedPackageFiles": [
     "C:\\Users\\Wesily\\.nuget\\packages\\fsharp.core\\6.0.1\\fsharp.core.6.0.1.nupkg.sha512",
     "C:\\Users\\Wesily\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",

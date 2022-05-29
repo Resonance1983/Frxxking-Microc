@@ -1,6 +1,7 @@
 open CPar
 open Interp
 
+type memData = Interp.memData
 let fromFile = Parse.fromFile
 let run = Interp.run
 let argv = System.Environment.GetCommandLineArgs()
@@ -17,7 +18,7 @@ let _ =
         let inputargs =
             Array.splitAt 2 args
             |> snd
-            |> (Array.map int)
+            |> (Array.map memData)
             |> Array.toList
 
         printf "interpreting %s ...inputargs:%A\n" source inputargs

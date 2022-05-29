@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Homework\\编译原理\\microc\\interpc.fsproj": {}
+    "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj": {}
   },
   "projects": {
-    "D:\\Homework\\编译原理\\microc\\interpc.fsproj": {
+    "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Homework\\编译原理\\microc\\interpc.fsproj",
+        "projectUniqueName": "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj",
         "projectName": "interpc",
-        "projectPath": "D:\\Homework\\编译原理\\microc\\interpc.fsproj",
+        "projectPath": "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj",
         "packagesPath": "C:\\Users\\Wesily\\.nuget\\packages\\",
-        "outputPath": "D:\\Homework\\编译原理\\microc\\obj\\",
+        "outputPath": "D:\\Homework\\编译原理\\FreakingF-Microc\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Wesily\\AppData\\Roaming\\NuGet\\NuGet.Config"

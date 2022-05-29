@@ -52,3 +52,6 @@ D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.fsproj.CopyComplete
 D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.dll
 D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.pdb
 D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.genruntimeconfig.cache
+D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
+D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
+D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs

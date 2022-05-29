@@ -25,7 +25,6 @@ let keyword s =
     | "int"     -> INT
     | "float" -> FLOAT
     | "double" -> DOUBLE
-    | "long" -> LONG
     | "string" -> STRING
     | "boolean" -> BOOLEAN //=
     | "null"    -> NULL
@@ -75,7 +74,7 @@ rule Token = parse          // 每个 规则rule 会生成为一个函数，函�
                             // 在 CPar 中  词元CSTINT 的语义值的类型是int  %token <int> CSTINT
                             //  CSTINT 需要一个整数作为参数
 
-  | ['0'-'9']+'.'['0'-'9']+                 { CSTDOUBLE (System.Double.Parse (lexemeAsString lexbuf)) }   //=
+  | ['0'-'9']+'.'['0'-'9']+      { CSTDOUBLE (System.Double.Parse (lexemeAsString lexbuf)) }   //=
 
   | ['0'-'9']+'.'['0'-'9']+      { CSTFLOAT (float (lexemeAsString lexbuf)) }
   
@@ -96,6 +95,8 @@ rule Token = parse          // 每个 规则rule 会生成为一个函数，函�
   | '/'             { DIV } 
   | '%'             { MOD }                     
   | '='             { ASSIGN } 
+  | ':'             { COLON }
+  | '?'             { QUEST }
   | "=="            { EQ } 
   | "!="            { NE }
   | '>'             { GT }
