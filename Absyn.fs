@@ -30,9 +30,11 @@ and expr =                           // 表达式，右值
   | Addr of access                   (* &x   or  &*p   or  &a[e]    *)
   | CstI of int                      (* Constant                    *)
   | CstF of float
+  | CstB of bool
   | CstD of double
   | CstS of string
   | CstC of char
+  | Print of string * expr
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
   | Prim3 of expr * expr * expr      (*  ? ：                        *)

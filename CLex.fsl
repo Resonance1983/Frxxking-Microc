@@ -26,7 +26,9 @@ let keyword s =
     | "float" -> FLOAT
     | "double" -> DOUBLE
     | "string" -> STRING
-    | "boolean" -> BOOLEAN //=
+    | "boolean" -> BOOLEAN
+    | "true"    -> CSTBOOL 1
+    | "false"   -> CSTBOOL 0
     | "null"    -> NULL
     | "print"   -> PRINT
     | "println" -> PRINTLN
@@ -74,9 +76,12 @@ rule Token = parse          // 每个 规则rule 会生成为一个函数，函�
                             // 在 CPar 中  词元CSTINT 的语义值的类型是int  %token <int> CSTINT
                             //  CSTINT 需要一个整数作为参数
 
-  | ['0'-'9']+'.'['0'-'9']+      { CSTDOUBLE (System.Double.Parse (lexemeAsString lexbuf)) }   //=
+  | ['0'-'9']+'.'['0'-'9']?       { CSTFLOAT (float (lexemeAsString lexbuf)) }
 
-  | ['0'-'9']+'.'['0'-'9']+      { CSTFLOAT (float (lexemeAsString lexbuf)) }
+  | ['0'-'9']+'.'['0'-'9']*      { CSTDOUBLE (System.Double.Parse (lexemeAsString lexbuf)) }   //=
+
+  | ['\'']['a'-'z''A'-'Z''0'-'9']['\'']            
+                    { try let single = lexemeAsString lexbuf in CSTCHAR (System.Char.Parse(single.Substring(1, 1))) with ex -> failwith "Char literal error." }
   
   | ['a'-'z''A'-'Z']['a'-'z''A'-'Z''0'-'9']*
                     { keyword (lexemeAsString lexbuf) } //标识符处理

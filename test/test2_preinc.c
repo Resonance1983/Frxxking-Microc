@@ -3,6 +3,6 @@ void main() {
     n = 3;
     ++n;
     n++;
-    print n;
+    print(n);
 }
 
