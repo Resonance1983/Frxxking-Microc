@@ -61,7 +61,7 @@ dotnet restore  microc.fsproj // 可选
 dotnet clean  microc.fsproj   // 可选
 dotnet build  microc.fsproj   // 构建 ./bin/Debug/net5.0/microc.exe
 
-dotnet run -p microc.fsproj test/test6_forin.c   // 执行编译器，编译 ex1.c，并输出  ex1.out 文件
+dotnet run -p microc.fsproj test/test.c   // 执行编译器，编译 ex1.c，并输出  ex1.out 文件
 dotnet run -p microc.fsproj -g test/test.c  // -g 查看调试信息
 
 dotnet clean  machine.csproj
@@ -72,8 +72,8 @@ dotnet run --project machine.csproj test/test.c # 运行虚拟机
 
 ```js
 javac -encoding UTF-8 Machine.java
-java Machine test/test6_forin.out //直接显示结果
-java Machinetrace test/test6_forin.out //查看栈式虚拟机每一步的细节
+java Machine test/test.c //直接显示结果
+java Machinetrace test/test.c //查看栈式虚拟机每一步的细节
 ```
 
 需要添加-encoding UTF-8，否则可能会造成编码错误提示。
@@ -781,33 +781,41 @@ java Machinetrace test/test6_forin.out //查看栈式虚拟机每一步的细节
 ![test7C](image\test7_compiler.png)
 
 **代码提交日志**
+等了20分钟打不开。。。
+![github1](image\GitHub_1.png)
+ps:中间因为操作失误，覆盖了一次仓库，少了大约4-5次commit
+![github2](image\GitHub_2.png)
+![github3](image\GitHub_3.png)
 
-![image-20210627235747819](assets/image-20210627235747819.png)
 
+## 自我评价以及分工
 
++ 功能实现自评
 
-## 技术评价
-
-+ example
-
-  |                  功能                   |  对应测试文件  |  优  |  良  |  中  |
+  |                  功能                   |   优  |  良  |  中  |
   | :-------------------------------------: | :------------: | :--: | :--: | :--: |
-  |               变量初始化                |    Assign.c    |      |  √   |      |
-  |               自增、自减                |     Pre.c      |  √   |      |      |
-  |                 for循环                 |     for.c      |  √   |      |      |
-  |               三目运算符                |    prim3.c     |  √   |      |      |
-  |               switch-case               |    switch.c    |  √   |      |      |
-  | float、double、char、long类型（编译器） |     type.c     |  √   |      |      |
-  |            dowhile、dountil             | dowhileuntil.c |  √   |      |      |
-  |            +=  -=  *=  /= %=            |     Add.c      |  √   |      |      |
-  |                 boolean                 |   boolean.c    |  √   |      |      |
+  |               变量初始化                 |  √   |      |      |
+  |               自增、自减                 |  √   |      |      |
+  |               for,foin                  |  √   |      |      |
+  |               三目运算                   |  √   |      |      |
+  |               switch(解释器)             |  √   |      |      |
+  | float、double、char、boolean类型（解释器）|      |   √  |      |
+  |            dowhile、dountil             |  √   |      |      |
+  |         print格式化输出(解释器)          |  √   |      |      |
+  |              [+-*/%]=                   |  √   |      |      |W
 
 
 
 
 ## 心得体会
 
+（1）这门课看起来非常复杂，实际上也确实，但我觉得可能还是在于资料太多，东西太多，作为学生实在是不知道该看什么，学什么，毕竟当代大学生都有学习焦虑，非常忌讳低效率，希望老师能给我们指导一些学习方向。如果只是单纯的文档和学习网页的话可能仍然只是摸石头过河的时候用了一杆手杖。就例如这次的大作业，说来惭愧，鄙人用了一整天的时间才知道该看什么，改什么，怎么用。
 
+（2）课程反馈非常有限。在学习过程中反馈非常有限，完全无法得知自己的水平，基本处于盲人摸象状态，无论是正确与否。确实提供了一些工具，但如果无法获得反馈来提升的话又怎么知道使用方法和对错那。
+
+（3）这门课本身还是非常硬核的，无论是解释器还是编译器虚拟机。将我们从大一开始学习的东西串联起来，从计算机原理到面向对象程序设计，确实有要学习的道理，但我认为，大作业的难度还是颇高了，兴许有更加适合的方式。
+
+（4）且不论之前的说法，也且不论之后的价值。课程的收获确实不错，一次解释器和编译器的撰写，哪怕只是改变，哪怕只是学习一点程序代码的底层逻辑也是作为一个计算机专业的学生很难得的体验，尽管我可能不想再有第二次，但仍然无法否定它的价值，毕竟良药苦口，但也有个词，枯死。
 
 
 
