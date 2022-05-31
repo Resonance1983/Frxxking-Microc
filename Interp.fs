@@ -25,6 +25,10 @@
    typecheck, so be careful.
  *)
 
+//acc指针,可以用access函数获得它的值
+//eval(evaluate) e1,e2,e3....(express) 返回表达式计算后的值
+//exec(execute) stmt(statment) 执行语句，不返回
+
 module Interp
 
 open Absyn

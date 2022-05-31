@@ -230,9 +230,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj",
-      "projectName": "interpc",
-      "projectPath": "D:\\Homework\\编译原理\\FreakingF-Microc\\interpc.fsproj",
+      "projectUniqueName": "D:\\Homework\\编译原理\\FreakingF-Microc\\microc.fsproj",
+      "projectName": "microc",
+      "projectPath": "D:\\Homework\\编译原理\\FreakingF-Microc\\microc.fsproj",
       "packagesPath": "C:\\Users\\Wesily\\.nuget\\packages\\",
       "outputPath": "D:\\Homework\\编译原理\\FreakingF-Microc\\obj\\",
       "projectStyle": "PackageReference",

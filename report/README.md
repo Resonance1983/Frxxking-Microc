@@ -10,52 +10,26 @@
 - 实验指导教师: 郭敏
 - [编译原理期末大作业 (github)](https://github.com/Wesily-G/FreakingF-Microc)
 
-
-
-## 简介
-
-这是一个名为MicroC的编译原理大作业，主要基于microC和Yuby完成，通过对解释器和编译器的代码改进和开发，实现了部分C语言的语法(并改进了部分)。主要完成功能如下：
-
-
-
 ## 项目说明
 
 ### 结构
-
-- `CLex.fsl`生成的`CLex.fs`词法分析器。
-
-  + CLex 中定义了基本的关键字、标识符、常量、使用大写字母表示
-
-    程序读到这个符号就会转换为我们定义的大写字母，然后就给 CPar 处理
-
-- `CPar.fsy`生成的`CPar.fs`语法分析器。
-
-  + CPar 文件分为两部分，每个部分之间通过 %% 分隔
-
-  + 第一部分声明需要使用的变量(词元)，声明变量后还需要声明优先级
-
-  + 第二部分定义语法规则(文法)
-
-    包括 : statement ,expression ,function  ,main ,vardeclare   variabledescirbe ,type ,const这些基本元素
-
-    表示识别到前面定义的这些大写字母组成的符号串后,怎么处理这些规则
 
 - `Absyn.fs` 定义了抽象语法树
 
   定义了变量描述、函数和类型的构造方法
 
-- `Comp.fs`将抽象语法树转化为栈式虚拟机
+- `CLex.fsl`生成的`CLex.fs`词法分析器。
 
-- `interp.fs`对抽象语法树进行语义分析
+  + CLex 中定义了程序的关键词和关键词的匹配规则
 
-- `Machine.fs` 虚拟机指令定义
+- `CPar.fsy`生成的`CPar.fs`语法分析器。
 
-- `Machine.java` 执行虚拟机指令
+  + CPar 文件前半部分定义了变量声明需要的词元和语句需要的关键词词元
+  + 后半部分定义了语句和其变量使用的规则
 
-+ `Machine.java`生成`Machine.class`虚拟机与`Machinetrace.class`堆栈追踪
+- `interp.fs`对程序解析抽象语法树出来的token序列进行语义分析，也就是解释器的核心代码部分
 
-测试集：测试程序放在test文件夹内
-
+- `Comp.fs`将抽象语法树转化为栈式虚拟机，也就是编译器的核心代码部分，最主要的是要学会使用草稿来模拟栈帧的运作
 
 
 ### 使用方法
@@ -72,7 +46,7 @@ dotnet build -v n interpc.fsproj // 构建 ./bin/Debug/net5.0/interpc.exe
 
 **执行解释器**
 
-```
+```js
 ./bin/Debug/net5.0/interpc.exe test/test.c
 dotnet run -p interpc.fsproj test/test.c
 dotnet run -p interpc.fsproj test/test.c  //-g 显示token AST 等调试信息
@@ -87,19 +61,22 @@ dotnet restore  microc.fsproj // 可选
 dotnet clean  microc.fsproj   // 可选
 dotnet build  microc.fsproj   // 构建 ./bin/Debug/net5.0/microc.exe
 
-dotnet run -p microc.fsproj example/ex1.c    // 执行编译器，编译 ex1.c，并输出  ex1.out 文件
-dotnet run -p microc.fsproj -g example/ex1.c  // -g 查看调试信息
+dotnet run -p microc.fsproj test/test6_forin.c   // 执行编译器，编译 ex1.c，并输出  ex1.out 文件
+dotnet run -p microc.fsproj -g test/test.c  // -g 查看调试信息
+
+dotnet clean  machine.csproj
+dotnet run --project machine.csproj test/test.c # 运行虚拟机
 ```
 
 **虚拟机的构建与运行**
 
-```java
+```js
 javac -encoding UTF-8 Machine.java
-java Machine ex9.out 3//直接显示结果    
-java Machinetrace ex9.out 0//查看栈式虚拟机每一步的细节
+java Machine test/test6_forin.out //直接显示结果
+java Machinetrace test/test6_forin.out //查看栈式虚拟机每一步的细节
 ```
 
-需要添加-encoding UTF-8，否则会造成编码错误提示。
+需要添加-encoding UTF-8，否则可能会造成编码错误提示。
 
 
 
@@ -689,10 +666,119 @@ java Machinetrace ex9.out 0//查看栈式虚拟机每一步的细节
          @ (cExpr (Assign((AccVar x), e)) varEnv funEnv)
            @ [ INCSP -1 ])
   ```
-- 堆栈图(test2_preinc.c)
-![image-20210627235747819](assets/image-20210627235747819.png)
+- 运行结果，堆栈图(test2_preinc.c)
+![test2C](image\test2_compiler.png)
 
+#### 2.3.简单声明赋值，三目运算
 
+- 编译器
+  ```F#
+  //三目运算：label标签定义程序位置
+  | Prim3(e1, e2, e3) ->
+      let labelse = newLabel()
+      let labend  = newLabel()
+      //e1判断条件，如果为否，跳转到labelse处
+      cExpr e1 varEnv funEnv @ [IFZERO labelse] 
+      @ cExpr e2 varEnv funEnv @ [GOTO labend]
+      @ [Label labelse] @ cExpr e3 varEnv funEnv
+      @ [Label labend]
+
+  | DecAndAssign (typ, x, e) -> 
+      //x的类型声明，和上面类似，分配空间
+      let (varEnv, code) = allocate Locvar (typ, x) varEnv
+      //返回值，赋值e给变量x，然后所见栈
+      (varEnv,code@ (cExpr (Assign((AccVar x), e)) varEnv funEnv)@ [ INCSP -1 ])
+  ```
+- 运行结果，堆栈图(test4_threeUnary.c)
+![test4C](image\test4_compiler.png)
+
+#### 4.运算符前置 [+-*/]=
+
+- 编译器
+  ```F#
+    //运算符前置
+    | AssignPrim (ope, e1, e2) ->
+        //和上面有些像，e1取值，备份并获取备份值，计算出e2后运算再送回原来的值
+        cAccess e1 varEnv funEnv
+        @[DUP;LDI]
+        @ cExpr e2 varEnv funEnv
+        @ (match ope with
+            | "+=" -> [ ADD;STI ]
+            | "-=" -> [ SUB;STI ]
+            | "*=" -> [ MUL;STI ]
+            | "/=" -> [ DIV;STI ]
+            | _ -> raise (Failure "unknown AssignPrim"))
+  ```
+- 运行结果，堆栈图(test2_preinc.c):截不全
+![test2C](image\test2_compiler.png)
+
+#### 5.for,for in
+
+- 编译器
+  ```F#
+  | For(e1, e2, e3, body) ->         
+      let labbegin = newLabel()
+      let labtest  = newLabel()
+      //e1赋值（到栈），直接先跑去e2判断条件，符合就跑回labbegin执行body然后e3(i++)
+      cExpr e1 varEnv funEnv @ [INCSP -1]
+      @ [GOTO labtest; Label labbegin] 
+      @ cStmt body varEnv funEnv
+      @ cExpr e3 varEnv funEnv @ [INCSP -1]
+      @ [Label labtest]
+      @ cExpr e2 varEnv funEnv 
+      @ [IFNZRO labbegin]
+
+  // for &var in range (e1=2,e2=7,e3=3) {body} -> 2,5
+  | ForIn (var, e1, e2, e3, body)  ->
+      let labbegin = newLabel()
+      let labtest  = newLabel()
+      //先给var赋值e1,再记录标签直接送到判断出和e2对比再循环
+      (cExpr (Assign(var, e1)) varEnv funEnv) @ [INCSP -1]
+      @ [GOTO labtest;Label labbegin]
+      @ cStmt body varEnv funEnv
+      //&var +e3
+      @ cExpr e3 varEnv funEnv
+      @ [ADD]
+      @ [Label labtest]
+      //判断代码
+      @ cAccess var varEnv funEnv @[LDI]
+      @ cExpr e2 varEnv funEnv
+      @ [ LT ]
+      @ [IFNZRO labbegin]
+  ```
+- 运行结果，堆栈图(test1_assignPlus.c):截不全
+![test1C](image\test6_compiler.png)
+
+#### 6.doWhile,doUntil
+
+- 编译器
+  ```F#
+  | DoWhile (body, e) ->
+      let labbegin = newLabel ()
+      let labtest = newLabel ()
+      //先运行一遍body，跑到labtest处判断是否继续执行，如果继续就跳到labbegin
+      cStmt body varEnv funEnv
+      @[GOTO labtest]
+      @[Label labbegin] 
+      @ cStmt body varEnv funEnv
+      @[Label labtest] 
+      @ cExpr e varEnv funEnv 
+      @[IFNZRO labbegin]
+
+  //和dowhile类似
+  | DoUntil (body, e) ->
+      let labbegin = newLabel ()
+      let labtest = newLabel ()
+      cStmt body varEnv funEnv
+      @[GOTO labtest] 
+      @[Label labbegin] 
+      @ cStmt body varEnv funEnv
+      @[Label labtest] 
+      @ cExpr e varEnv funEnv  
+      @[IFZERO labbegin]
+  ```
+- 运行结果，堆栈图(test1_assignPlus.c):截不全
+![test7C](image\test7_compiler.png)
 
 **代码提交日志**
 
