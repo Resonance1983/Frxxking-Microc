@@ -11,7 +11,7 @@
    The compile-time environment maps a global variable to a fixed
    store address, and maps a local variable to an offset into the
    current stack frame, relative to its bottom.  The run-time store
-   maps a location to an integer.  This freely permits pointer
+   maps a location to an integer.  This freely permits ProjectionParameterAttribute
    arithmetics, as in real C.  A compile-time function environment
    maps a function name to a code label.  In the generated code,
    labels are replaced by absolute code addresses.

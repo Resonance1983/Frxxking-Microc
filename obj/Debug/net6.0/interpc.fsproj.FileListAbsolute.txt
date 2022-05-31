@@ -52,9 +52,6 @@ D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.fsproj.CopyComplete
 D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.dll
 D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.pdb
 D:\Homework\编译原理\microc\obj\Debug\net6.0\interpc.genruntimeconfig.cache
-D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
-D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
-D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs
 D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\interpc.exe
 D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\interpc.deps.json
 D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\interpc.runtimeconfig.json
@@ -75,6 +72,9 @@ D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\ru\FSharp.Core.resour
 D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\tr\FSharp.Core.resources.dll
 D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\zh-Hans\FSharp.Core.resources.dll
 D:\Homework\编译原理\FreakingF-Microc\bin\Debug\net6.0\zh-Hant\FSharp.Core.resources.dll
+D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
+D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
+D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs
 D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.fsproj.CopyComplete
 D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.dll
 D:\Homework\编译原理\FreakingF-Microc\obj\Debug\net6.0\interpc.pdb
